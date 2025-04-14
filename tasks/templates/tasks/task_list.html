@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Task List</title>
+    {% load static %}
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="{% static 'css/styles.css' %}"
+    />
+  </head>
+  <body>
+    <div class="task-manager">
+      <header class="task-manager__header">
+        <h1 class="task-manager__title">Task List</h1>
+        <button class="task-manager__add-btn" id="add-task-btn">
+          Create New Note
+        </button>
+      </header>
+
+      <main class="task-manager__content">
+        <ul class="task-list">
+          {% for task in tasks %}
+          <li class="task-list__item">
+            <div class="task-card">
+              {% if task.completed == True %}
+              <h2 class="task-card__title"><strike>{{task.title}}</strike></h2>
+              {% else %}
+              <h2 class="task-card__title">{{ task.title }}</h2>
+              {% endif %}
+
+              <p class="task-card__description">{{ task.description }}</p>
+              <div class="task-card__status">
+                <form
+                  method="POST"
+                  action="{% url 'toggle_completed' task.id %}"
+                  style="display: inline"
+                >
+                  {% csrf_token %}
+                  <label>
+                    <input
+                      type="checkbox"
+                      name="completed"
+                      {%
+                      if
+                      task.completed
+                      %}checked{%
+                      endif
+                      %}
+                    />
+                    Completed
+                  </label>
+                </form>
+              </div>
+              <div class="task-card__actions">
+                <button class="task-card__edit-btn">Edit</button>
+
+                <form
+                  method="POST"
+                  action="{% url 'delete_task' task.id %}"
+                  style="display: inline"
+                >
+                  {% csrf_token %}
+                  <button type="submit" class="task-card__delete-btn">
+                    Delete
+                  </button>
+                </form>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+        </ul>
+      </main>
+    </div>
+
+    <div id="task-modal" class="modal">
+      <div class="modal__content">
+        <span class="modal__close">&times;</span>
+        <h2 class="modal__title">Add/Edit Task</h2>
+        <form
+          id="tasdk-form"
+          class="task-form"
+          method="POST"
+          action="{% url 'save_task' %}"
+        >
+          {% csrf_token %}
+          <input type="hidden" id="task-id" name="id" />
+          <label for="task-title" class="task-form__label">Title:</label>
+          <input
+            type="text"
+            id="task-title"
+            name="title"
+            class="task-form__input"
+            required
+          />
+
+          <label for="task-description" class="task-form__label"
+            >Description:</label
+          >
+          <textarea
+            id="task-description"
+            name="description"
+            class="task-form__input"
+          ></textarea>
+
+          <button type="submit" class="task-form__submit-btn">Save Task</button>
+        </form>
+      </div>
+    </div>
+  </body>
+  {% load static %}
+  <script src="{% static 'js/script.js' %}"></script>
+</html>
