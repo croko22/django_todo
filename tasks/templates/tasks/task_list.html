@@ -16,7 +16,7 @@
       <header class="task-manager__header">
         <h1 class="task-manager__title">Task List</h1>
         <button class="task-manager__add-btn" id="add-task-btn">
-          Create New Note
+          Create New Task
         </button>
       </header>
 
@@ -24,7 +24,9 @@
         <ul class="task-list">
           {% for task in tasks %}
           <li class="task-list__item">
-            <div class="task-card">
+            <div
+              class="task-card {% if task.completed == True %}task-card--completed{% endif %}"
+            >
               {% if task.completed == True %}
               <h2 class="task-card__title"><strike>{{task.title}}</strike></h2>
               {% else %}
@@ -32,30 +34,27 @@
               {% endif %}
 
               <p class="task-card__description">{{ task.description }}</p>
-              <div class="task-card__status">
+              <div class="task-card__actions">
                 <form
                   method="POST"
                   action="{% url 'toggle_completed' task.id %}"
-                  style="display: inline"
+                  class="task-card__toggle-form"
                 >
                   {% csrf_token %}
-                  <label>
-                    <input
-                      type="checkbox"
-                      name="completed"
-                      {%
-                      if
-                      task.completed
-                      %}checked{%
-                      endif
-                      %}
-                    />
-                    Completed
-                  </label>
+                  <button type="submit" class="task-card__toggle-btn">
+                    {% if task.completed %} Mark as Incomplete {% else %} Mark
+                    as Completed {% endif %}
+                  </button>
                 </form>
-              </div>
-              <div class="task-card__actions">
-                <button class="task-card__edit-btn">Edit</button>
+
+                <button
+                  class="task-card__edit-btn"
+                  data-task-id="{{ task.id }}"
+                  data-task-title="{{ task.title }}"
+                  data-task-description="{{ task.description }}"
+                >
+                  Edit
+                </button>
 
                 <form
                   method="POST"
