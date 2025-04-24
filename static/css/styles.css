@@ -197,3 +197,92 @@ body {
   background-color: #f0f0f0;
   color: #888;
 }
+
+/* Formulario de edición de tarea */
+.task-card__edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 5px;
+  background-color: transparent;
+  width: 100%;
+}
+
+/* Input de título */
+.task-card__edit-input {
+  padding: 10px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  font: bold 1rem;
+  font-size: large;
+  border-radius: 4px;
+  width: 90%;
+}
+
+.task-card__edit-input:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Textarea de descripción */
+.task-card__edit-textarea {
+  padding: 10px;
+  font-size: 1rem;
+  width: 90%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  min-height: 0px;
+  resize: vertical;
+}
+
+.task-card__edit-textarea:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Botón de guardar */
+.task-card__edit-submit-btn {
+  padding: 5px 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+  width: 70px;
+  transition: background-color 0.3s;
+}
+
+.task-card__edit-submit-btn:hover {
+  background-color: #218838;
+}
+
+.task-manager__user-info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background-color: #f4f4f4;
+  border-radius: 5px;
+}
+
+.task-manager__username {
+  font-size: 18px;
+  font-weight: bold;
+  margin-right: 20px;
+  color: #333;
+}
+
+.task-manager__logout-btn {
+  background-color: #e74c3c;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.task-manager__logout-btn:hover {
+  background-color: #c0392b;
+}

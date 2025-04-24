@@ -16,23 +16,4 @@ document.addEventListener("DOMContentLoaded", () => {
   closeModalBtn.addEventListener("click", () => {
     modal.style.display = "none";
   });
-
-  document.querySelectorAll(".task-card__edit-btn").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      console.log("Edit button clicked");
-      console.log("Task ID:", btn.dataset.taskId);
-      console.log("Task Title:", btn.dataset.taskTitle);
-      console.log("Task Description:", btn.dataset.taskDescription);
-
-      const taskId = btn.dataset.taskId;
-      const taskTitle = btn.dataset.taskTitle;
-      const taskDescription = btn.dataset.taskDescription;
-
-      taskIdInput.value = taskId || "";
-      taskTitleInput.value = taskTitle || "";
-      taskDescriptionInput.value = taskDescription || "";
-
-      modal.style.display = "flex";
-    });
-  });
 });

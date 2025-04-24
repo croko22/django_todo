@@ -1,4 +1,4 @@
-# Django ToDo List App with UV
+# Django ToDo List App
 
 A simple yet powerful task management application built with Django.
 
@@ -30,44 +30,34 @@ A simple yet powerful task management application built with Django.
 
 3. Install dependencies:
    ```bash
-   uv pip install -r pyproject.toml
+   pip install -r requirements.txt
    ```
 
 4. Configure environment:
    ```bash
    cp .env.example .env
-   # Edit .env with your settings
    ```
 
 5. Run migrations:
    ```bash
-   uv run python manage.py migrate
+   python manage.py migrate
    ```
 
 6. Create superuser:
    ```bash
-   uv run python manage.py createsuperuser
+   python manage.py createsuperuser
+   ```
+
+7. Load fixture data:
+   ```bash
+   python manage.py loaddata tasks_fixture.json
    ```
 
 ## Running the App
 
 Start development server:
 ```bash
-uv run python manage.py runserver
+python manage.py runserver
 ```
 
 Access the app at: http://localhost:8000
-
-## API Endpoints
-
-| Endpoint | Method | Description |
-|----------|--------|-------------|
-| `/tasks/` | GET | List all tasks |
-| `/tasks/create/` | POST | Create new task |
-| `/tasks/<id>/` | PUT | Update task |
-| `/tasks/<id>/` | DELETE | Remove task |
-
-## License
-
-MIT License - see [LICENSE](LICENSE) for details
-```
