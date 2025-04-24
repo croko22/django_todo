@@ -1,0 +1,88 @@
+{% extends "base.html" %} {% block content %}
+<ul class="task-list">
+  {% for task in tasks %}
+  <li class="task-list__item">
+    <div
+      class="task-card {% if task.completed %}task-card--completed{% endif %}"
+    >
+      <form
+        method="POST"
+        action="{% url 'update_task' task.id %}"
+        class="task-card__edit-form"
+      >
+        {% csrf_token %}
+        <input type="hidden" name="id" value="{{ task.id }}" />
+        <input type="hidden" name="_method" value="PUT" />
+        <input
+          type="text"
+          name="title"
+          value="{{ task.title }}"
+          class="task-card__edit-input"
+          required
+        />
+        <textarea name="description" class="task-card__edit-textarea" required>
+{{ task.description }}</textarea
+        >
+        <button type="submit" class="task-card__edit-submit-btn">Save</button>
+      </form>
+
+      <div class="task-card__actions">
+        <form
+          method="POST"
+          action="{% url 'toggle_completed' task.id %}"
+          class="task-card__toggle-form"
+        >
+          {% csrf_token %}
+          <button type="submit" class="task-card__toggle-btn">
+            {% if task.completed %} Mark as Incomplete {% else %} Mark as
+            Completed {% endif %}
+          </button>
+        </form>
+
+        <form
+          method="POST"
+          action="{% url 'delete_task' task.id %}"
+          style="display: inline"
+        >
+          {% csrf_token %}
+          <button type="submit" class="task-card__delete-btn">Delete</button>
+        </form>
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% endblock %} {% block modal %}
+<div id="task-modal" class="modal">
+  <div class="modal__content">
+    <span class="modal__close">&times;</span>
+    <h2 class="modal__title">Add Task</h2>
+    <form
+      id="task-form"
+      class="task-form"
+      method="POST"
+      action="{% url 'create_task' %}"
+    >
+      {% csrf_token %}
+      <input type="hidden" id="task-id" name="id" />
+      <label for="task-title" class="task-form__label">Title:</label>
+      <input
+        type="text"
+        id="task-title"
+        name="title"
+        class="task-form__input"
+        required
+      />
+      <label for="task-description" class="task-form__label"
+        >Description:</label
+      >
+      <textarea
+        id="task-description"
+        name="description"
+        class="task-form__input"
+      ></textarea>
+      <button type="submit" class="task-form__submit-btn">Save Task</button>
+    </form>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}Task List{% endblock %}</title>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
+  </head>
+  <body>
+    <div class="task-manager">
+      <header class="task-manager__header">
+        <h1 class="task-manager__title">Task List</h1>
+
+        {% if user.is_authenticated %}
+        <div class="task-manager__user-info">
+          <span class="task-manager__username"
+            >Welcome, {{ user.username }}</span
+          >
+          <form
+            method="POST"
+            action="{% url 'logout' %}"
+            style="display: inline"
+          >
+            {% csrf_token %}
+            <button type="submit" class="task-manager__logout-btn">
+              Logout
+            </button>
+          </form>
+        </div>
+        {% endif %}
+
+        <button class="task-manager__add-btn" id="add-task-btn">
+          Create New Task
+        </button>
+      </header>
+
+      <main class="task-manager__content">
+        {% block content %}{% endblock %}
+      </main>
+    </div>
+
+    {% block modal %}{% endblock %}
+    <script src="{% static 'js/script.js' %}"></script>
+  </body>
+</html>
